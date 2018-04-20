@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friends</title>
+    <meta name="description" content="Friends Page"> {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <a href="/ciao" id="logout">Logout</a>
+    <h1>Hello, {{ request.session.user }}</h1>
+
+    <h2>Here is a list of your friends:</h2>
+    
+    <table>    
+    <tr>
+        <th>Alias</th>
+        <th>Action</th> 
+    </tr>
+    <tr>    
+        <td>   
+        </td>    
+        <td>
+            <a href="???">View Profile</a>"
+        </td> 
+        <td>
+            <a href="???">Remove as a friend</a>"
+        </td>
+    </tr>        
+    </table>            
+
+       
+    
+   
+</body>
+</html>
