@@ -1,0 +1,25 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login and Registration</title>
+    <meta name="description" content="Login and Registration"> {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <a href="/ciao" id="logout">Logout</a>
+
+
+    <h2>Posts by: {{ name }}</h2>
+    <h2>Count: {{ count }}</h2>    
+
+
+    <ul id="noSTYLE">
+    {% for quote in their_quotes %}
+    
+    <li><span style="font-size: 22px">{{ quote.quoted_by }}:</span> {{ quote.Quote }}</li>
+            
+    {% endfor %}
+    </ul>
+
+</body>
+</html>

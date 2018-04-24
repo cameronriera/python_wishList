@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friends</title>
+    <meta name="description" content="Friends Page"> {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <a href="/ciao" id="logout">Logout</a>
+    <h1>Welcome, {{ name }}!</h1>
+
+    <h2>Quotable Quotes:</h2>
+    
+    <div id='wrapper'>
+        {% for quote in quotable_quotes %}
+        <div id="quotable">
+            <p>{{ quote.quoted_by }}: {{ quote.Quote }}</p>
+            <p>Posted by: <a href="/users/{{ quote.posted_by.id }}">{{quote.posted_by.name }}</a></p>
+            <a href="/quotes/add/{{ quote.id }}"><button>Add to My List</button></a>
+        </div>
+        {% endfor %}
+    </div>
+
+    Your Favorites:
+    <div id="wrapper">
+        {% for favorite in your_favorites %}
+        <div id="favorites">
+            <p>{{ favorite.quoted_by }}: {{ favorite.quote }}</p>
+            <p>Posted by: <a href="/users/{{ favorite.posted_by.id }}">{{favorite.posted_by.name }}</a></p>
+            <a href="/quotes/remove/{{ favorite.id }}"><button>Remove From My List</button></a>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <form action="{% url 'add_quote' %}" method="POST" class="form-horizontal" id="loginreg">
+        {% csrf_token %}
+        <h2>Contribute a Quote:</h2>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Quoted by:</label>
+            <div class="col-sm-4">
+                <input type="text" name="quoted_by" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Message:</label>
+            <div class="col-sm-4">
+                <input type="text" name="Quote" class="form-control">
+            </div>
+        </div>
+        <input class="button" id="submitbutton" type="submit" value="Submit">
+    </form>
+
+
+
+    <!-- <table>    
+    <tr>
+        <th>Alias</th>
+        <th>Action</th> 
+    </tr>
+     {% for friend in friends %}
+     <tr>    
+        <td>
+            {{ friend.alias }}
+        </td>    
+        <td>
+            <button onclick="">View Profile</button>
+            <button onclick="">View Profile</button>
+        </td> 
+    </tr> 
+    {% endfor %}       
+    </table>  
+    
+
+    <table>    
+    <tr>
+        <th>Alias</th>
+        <th>Action</th> 
+    </tr>
+    {% for user in not_friends %}
+    <tr>    
+        <td>
+            {{ user.alias }}
+        </td>    
+        <td>
+            <a href="/friends/add/{{user.id}}"><button>Add friend</button></a>
+        </td> 
+    </tr> 
+    {% endfor %}       
+    </table>   -->
+
+       
+    
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
-from datetime import datetime
+from datetime import *
 
 import bcrypt
 import re
@@ -37,10 +37,17 @@ class UserManager(models.Manager):
 			messages.error(request, "This email already exists in our database.")
 			passFlag = False
 
+        birthday = userInfo['DOB']
+        today = date.today().strftime("%Y-%m-%d")
+        print today
+        if birthday >= today:
+            messages.warning(request, "Birthday cannot be the present day or a future date.")
+            passFlag = False
+
         if passFlag == True:
             messages.success(request, "Success! Welcome, " + userInfo['name'] + "!")
             hashed = bcrypt.hashpw(userInfo['password'].encode(), bcrypt.gensalt())
-            User.objects.create(name = userInfo['name'], alias = userInfo['alias'], email = userInfo['email'], password = hashed)
+            User.objects.create(name = userInfo['name'], alias = userInfo['alias'], email = userInfo['email'], password = hashed, birthday = birthday)
         return passFlag
 
     def UserExistsLogin(self, userInfo, request):
@@ -66,15 +73,14 @@ class User(models.Model):
     alias = models.CharField(max_length = 255)
     email = models.CharField(max_length = 255)
     password = models.CharField(max_length = 255)
-    # birthday = models.DateField(("Date"), default={{"+datetime.date"}})
+    birthday = models.DateField()
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     userManager = UserManager()
     objects = models.Manager()
 
-class Friend(models.Model):
-    name = models.CharField(max_length = 255)
-    alias = models.CharField(max_length = 255)
-    user = models.ForeignKey(User,related_name= "friends")
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+class Quotable(models.Model):
+    Quote = models.CharField(max_length = 255)
+    quoted_by = models.CharField(max_length = 255)
+    posted_by = models.ForeignKey(User, related_name="posted_quotes")
+    favorited_by = models.ManyToManyField(User, related_name="favorites")
