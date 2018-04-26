@@ -13,6 +13,11 @@
 
 table {
     border: 1px solid black;
+    margin: 20px;
+}
+
+table td {
+    padding: 10px;
 }
 
 #favorites {
@@ -23,4 +28,8 @@ table {
 #quotable {
     border: 1px solid black;
     margin: 10px 15px 10px 10px;
+}
+
+#noSTYLE {
+    text-decoration: none;
 }

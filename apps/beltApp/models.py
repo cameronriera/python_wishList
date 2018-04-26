@@ -15,13 +15,13 @@ class UserManager(models.Manager):
         if not userInfo['name'].isalpha():
             messages.warning(request, 'First name contains non-alpha characters.')
             passFlag = False
-        if len(userInfo['name']) < 2:
+        if len(userInfo['name']) < 3:
             messages.warning(request, 'First name is too short.')
             passFlag = False
         if not userInfo['alias'].isalpha():
             messages.warning(request, 'Last name contains non-alpha characters.')
             passFlag = False
-        if len(userInfo['alias']) < 2:
+        if len(userInfo['alias']) < 3:
             messages.warning(request, 'Last name is too short.')
             passFlag = False
         if not EMAIL_REGEX.match(userInfo['email']):
@@ -39,7 +39,6 @@ class UserManager(models.Manager):
 
         birthday = userInfo['DOB']
         today = date.today().strftime("%Y-%m-%d")
-        print today
         if birthday >= today:
             messages.warning(request, "Birthday cannot be the present day or a future date.")
             passFlag = False
@@ -79,8 +78,9 @@ class User(models.Model):
     userManager = UserManager()
     objects = models.Manager()
 
-class Quotable(models.Model):
-    Quote = models.CharField(max_length = 255)
-    quoted_by = models.CharField(max_length = 255)
-    posted_by = models.ForeignKey(User, related_name="posted_quotes")
+class Product(models.Model):
+    Item = models.CharField(max_length = 255)
+    added_by = models.ForeignKey(User, related_name="added_products")
     favorited_by = models.ManyToManyField(User, related_name="favorites")
+    date_added = models.DateTimeField(auto_now_add = True)
+    objects = models.Manager()

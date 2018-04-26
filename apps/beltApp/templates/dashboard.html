@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Wish List</title>
+    <meta name="description" content="Dashboard"> {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <a href="/ciao" id="logout">Logout</a>
+    <h1>Hello, {{ name }}!</h1>
+
+    <h2>Your Wish List:</h2>
+<!--     
+    <table>
+        {% for quote in quotable_quotes %}
+        <t>
+            <p>{{ quote.quoted_by }}: {{ quote.Quote }}</p>
+            <p>Posted by: <a href="/users/{{ quote.posted_by.id }}">{{quote.posted_by.name }}</a></p>
+            <a href="/quotes/add/{{ quote.id }}"><button>Add to My List</button></a>
+        </div>
+        {% endfor %}
+    </div>
+
+    Your Favorites:
+    <div id="wrapper">
+        {% for favorite in your_favorites %}
+        <div id="favorites">
+            <p>{{ favorite.quoted_by }}: {{ favorite.quote }}</p>
+            <p>Posted by: <a href="/users/{{ favorite.posted_by.id }}">{{favorite.posted_by.name }}</a></p>
+            <a href="/wish_items/remove/{{ favorite.id }}"><button>Remove From My List</button></a>
+        </div>
+        {% endfor %}
+    </div> -->
+    
+    <table>    
+    <tr>
+        <th>Item</th>
+        <th>Added By</th>
+        <th>Date Added</th>
+        <th>Action</th> 
+    </tr>
+    {% for favorite in your_favorites %}
+    <tr>    
+        <td>
+            <a href="/wish_items/{{ favorite.id }}">{{ favorite.Item }}</a>
+        </td>
+        <td>
+            {{ favorite.added_by.name }}
+        </td>    
+        <td>
+            {{ favorite.date_added }}
+        </td>        
+        <td>
+            {% if favorite.added_by == current_user %}
+            <a href="/wish_items/delete/{{ favorite.id }}">Delete</a>
+            {% else %}
+            <a href="/wish_items/remove/{{ favorite.id }}">Remove from my Wishlist</a>
+            {% endif %}
+        </td> 
+    </tr> 
+    {% endfor %}       
+    </table> 
+    
+
+    <h2>Other Users' Wish List:</h2>
+    <table>    
+    <tr>
+        <th>Item</th>
+        <th>Added By</th>
+        <th>Date Added</th>
+        <th>Action</th> 
+    </tr>
+    {% for product in other_products %}
+    <tr>    
+        <td>
+            <a href="/wish_items/{{ product.id }}">{{ product.Item }}</a>
+        </td>
+        <td>
+            {{ product.added_by.name }}
+        </td>    
+        <td>
+            {{ product.date_added }}
+        </td>        
+        <td>
+            <a href="/wish_items/add/{{ product.id }}">Add to my Wishlist</a>
+        </td> 
+    </tr> 
+    {% endfor %}       
+    </table> 
+
+    <a href="wish_items/create">Add Item</a>
+
+
+    
+    
+
+</body>
+</html>

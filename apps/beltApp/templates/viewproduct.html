@@ -1,0 +1,28 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ item }}</title>
+    <meta name="description" content="Login and Registration"> {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <span style="text-align: right">
+    <a href="/dashboard">Home</a>
+    <a href="/ciao">Logout</a>
+    </span>
+
+
+    <h1>{{ item }}</h2>
+    <h2>Users who added this product/item under their wish list:</h2>    
+
+
+    <ul id="noSTYLE">
+    {% for wisher in wish_list %}
+    
+    <li>{{ wisher.name }}</li>
+            
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
