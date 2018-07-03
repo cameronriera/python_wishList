@@ -1,2 +1,2 @@
 # Python App
-This app was built in April, 2018.
+This Django app was built in April, 2018.
